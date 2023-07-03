@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-5.7.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+<http auto-config='true'>
+    <csrf disabled="true"/>
+    <intercept-url pattern="/getById" access="hasRole('ROLE_ADMIN')" />
+    <intercept-url pattern="/viewAll" access="hasAnyRole('ROLE_ADMIN')"/>
+    <intercept-url pattern="/editEmployee" access="hasAnyRole('ROLE_ADMIN')"/>
+    <intercept-url pattern="/deleteEmployee" access="hasRole('ROLE_ADMIN')"/>
+
+</http>
+
+<authentication-manager>
+    <authentication-provider>
+        <user-service>
+            <user name="admin" password="{noop}1234" authorities="ROLE_ADMIN" />
+        </user-service>
+    </authentication-provider>
+</authentication-manager>
+
+</beans:beans>
